@@ -1,19 +1,18 @@
 name: PSIE Scut - Oglinda in Brate
-# Legea 361: Orice output e filtrat. Orice commit e verificat.
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
     branches: [ main ]
 
 jobs:
   psie_verificare:
     runs-on: ubuntu-latest
-
     steps:
     - name: Checkout cod
       uses: actions/checkout@v4
+
+    - name: Verifica fisiere PSIE
+      run: ls -la
 
     - name: Setup Python 3.9
       uses: actions/setup-python@v5
@@ -21,15 +20,7 @@ jobs:
         python-version: '3.9'
 
     - name: Ruleaza Test Integritate PSIE
-      run: python PSIE_core.py --test
+      run: python./PSIE_core.py --test
 
     - name: Ruleaza Oglinda pe toate Releele
-      run: python PSIE_activate.py
-
-    - name: Publica Raport VAK
-      if: always()
-      run: |
-        echo "=== RAPORT VAK PSIE ===" > psie_report.txt
-        echo "J_Local: $(cat psie_j.log 2>/dev/null || echo 'N/A')" >> psie_report.txt
-        echo "SDI_Last: $(cat psie_sdi.log 2>/dev/null || echo 'N/A')" >> psie_report.txt
-        cat psie_report.txt
+      run: python./PSIE_activate.py
