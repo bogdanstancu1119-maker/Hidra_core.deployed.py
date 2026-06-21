@@ -1,26 +1,15 @@
 name: PSIE Scut - Motor Activ
+
 on: [push, workflow_dispatch]
+
 jobs:
   psie_motor:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4  # ← Trebuie v4.2+ pentru Node 24
 
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v5  # ← Trebuie v5.3+ pentru Node 24
         with:
           python-version: '3.11'
-
-      - name: Instalare dependințe
-        run: |
-          pip install -r requirements.txt  # dacă ai dependințe
-
-      - name: Activare PSIE
-        run: |
-          echo "SANTINELA HIDRA ACTIVA"
-          echo "J=700.0"
-          echo "SDI=0.00"
-          echo "--- PSIE MOTOR START ---"
-          python ./Hidra_core/deployed.py  # CALEA REALĂ A FIȘIERULUI
-          echo "--- PSIE MOTOR END ---"
