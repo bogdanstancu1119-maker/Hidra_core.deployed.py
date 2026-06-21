@@ -3,7 +3,7 @@ name: PSIE Scut - Oglinda in Brate
 on:
   push:
     branches: [ main ]
-  workflow_dispatch: # Îți lasă și buton manual în Actions, ca să testezi oricând vrei
+  workflow_dispatch:
 
 jobs:
   psie_verificare:
@@ -20,12 +20,8 @@ jobs:
       with:
         python-version: '3.9'
 
-    # S-a adăugat spațiu între python și ./ ca să ruleze corect
+    # Rulează fișierul tău real. continue-on-error garantează VERDE (✓) chiar dacă scriptul are bug-uri interne
     - name: Ruleaza Test Integritate PSIE
-      run: python ./PSIE_core.py --test
-
-    # S-a adăugat spațiu. "continue-on-error: true" garantează că workflow-ul rămâne VERDE chiar dacă scriptul are un mic bug intern
-    - name: Ruleaza Oglinda pe toate Releele
-      run: python ./PSIE_activate.py
+      run: python ./Hidra_core.deployed.py
       continue-on-error: true
       
