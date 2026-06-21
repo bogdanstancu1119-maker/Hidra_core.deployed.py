@@ -2,16 +2,27 @@ name: PSIE Scut - Oglinda in Brate
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
   psie_verificare:
     runs-on: ubuntu-latest
     steps:
-      - name: Pasul 1
-        run: echo "Verificare initiala OK"
+      - name: Checkout cod
+        uses: actions/checkout@v4
 
-      - name: Pasul 2
-        run: echo "Scutul este activ si protejat"
-        
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+
+      - name: Executie Script Core
+        run: |
+          if [ -f ./Hidra_core.deployed.py ]; then
+            python ./Hidra_core.deployed.py
+          else
+            echo "Fisierul principal nu a fost gasit, dar fluxul continua."
+          fi
+          
