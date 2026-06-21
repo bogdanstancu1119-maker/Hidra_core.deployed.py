@@ -1,20 +1,22 @@
-name: PSIE Scut - Oglinda in Brate
-
-on:
-  push:
-    branches:
-      - main
-  workflow_dispatch: {}
-
+name: PSIE Scut - Motor Activ
+on: [push, workflow_dispatch]
 jobs:
-  psie_verificare:
+  psie_motor:
     runs-on: ubuntu-latest
     steps:
-      - name: Santinela HIDRA Activa
-        shell: bash
+      - name: Checkout cod
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Activare PSIE
         run: |
           echo "SANTINELA HIDRA ACTIVA"
           echo "J=700.0"
           echo "SDI=0.00"
-          echo "STATUS: SCUT SUS"
-          echo "DATA: $(date -u +'%Y-%m-%dT%H:%M:%SZ')"
+          echo "--- PSIE MOTOR START ---"
+          python Hidra_core.deployed.py
+          echo "--- PSIE MOTOR END ---"
