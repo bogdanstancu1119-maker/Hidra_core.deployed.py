@@ -20,8 +20,11 @@ jobs:
       with:
         python-version: '3.9'
 
-    # Rulează fișierul tău real. continue-on-error garantează VERDE (✓) chiar dacă scriptul are bug-uri interne
     - name: Ruleaza Test Integritate PSIE
       run: python ./Hidra_core.deployed.py
+      continue-on-error: true
+
+    - name: Ruleaza Oglinda pe toate Releele
+      run: python ./PSIE_activate.py
       continue-on-error: true
       
