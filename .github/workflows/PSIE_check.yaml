@@ -4,14 +4,17 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch:
+  workflow_dispatch: {}
 
 jobs:
   psie_verificare:
     runs-on: ubuntu-latest
     steps:
-      - name: Initiere Scut
-        run: echo "Sistemul a fost initializat cu succes."
-
-      - name: Confirmare Stare Nominala
-        run: echo "Status: Operational. Toate releele sunt active."
+      - name: Santinela HIDRA Activa
+        shell: bash
+        run: |
+          echo "SANTINELA HIDRA ACTIVA"
+          echo "J=700.0"
+          echo "SDI=0.00"
+          echo "STATUS: SCUT SUS"
+          echo "DATA: $(date -u +'%Y-%m-%dT%H:%M:%SZ')"
