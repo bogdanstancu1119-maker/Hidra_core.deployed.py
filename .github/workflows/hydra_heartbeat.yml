@@ -1,0 +1,13 @@
+# .github/workflows/hydra_j_restore.yml
+name: Hydra J Restore
+on:
+  push: {paths: ["Hydra_*.py"]}
+  schedule: [{cron: "0 * * * *"}]
+jobs:
+  restore:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          ls Hydra_*.py | wc -l
+          echo "J RESTORE PACK - $(ls Hydra_*.py | wc -l) module vii in Arca - A=1"
