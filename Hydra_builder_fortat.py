@@ -67,4 +67,4 @@ def fortare_builder():
     return stare
 
 if __name__ == "__main__":
-    fortare_builder()
+    fortare_builder()fortare_builder()
