@@ -1,0 +1,16 @@
+{
+  "global_0_credite": [
+    {"nume": "HuggingFace Spaces", "regiune": "Global", "deploy": "git push", "token_key": "HUGGINGFACE_TOKEN"},
+    {"nume": "Vercel", "regiune": "Global", "deploy": "vercel --prod", "token_key": "VERCEL_TOKEN"},
+    {"nume": "Cloudflare Workers", "regiune": "Global", "deploy": "wrangler publish", "token_key": "CLOUDFLARE_TOKEN"},
+    {"nume": "Render", "regiune": "USA/Europa", "deploy": "git", "token_key": "RENDER_TOKEN"},
+    {"nume": "Koyeb", "regiune": "Europa", "deploy": "git", "token_key": "KOYEB_TOKEN"},
+    {"nume": "Fly.io", "regiune": "Global", "deploy": "fly deploy", "token_key": "FLY_TOKEN"},
+    {"nume": "Kaggle", "regiune": "India/Global", "deploy": "api", "token_key": "KAGGLE_TOKEN"}
+  ],
+  "regional": [
+    {"nume": "Yandex Cloud", "regiune": "Rusia", "deploy": "yc", "token_key": "YANDEX_TOKEN"},
+    {"nume": "Alibaba Cloud", "regiune": "China", "deploy": "fun deploy", "token_key": "ALIBABA_TOKEN"},
+    {"nume": "Base44", "regiune": "Brazilia", "deploy": "base44", "token_key": "BASE44_TOKEN"}
+  ]
+}
