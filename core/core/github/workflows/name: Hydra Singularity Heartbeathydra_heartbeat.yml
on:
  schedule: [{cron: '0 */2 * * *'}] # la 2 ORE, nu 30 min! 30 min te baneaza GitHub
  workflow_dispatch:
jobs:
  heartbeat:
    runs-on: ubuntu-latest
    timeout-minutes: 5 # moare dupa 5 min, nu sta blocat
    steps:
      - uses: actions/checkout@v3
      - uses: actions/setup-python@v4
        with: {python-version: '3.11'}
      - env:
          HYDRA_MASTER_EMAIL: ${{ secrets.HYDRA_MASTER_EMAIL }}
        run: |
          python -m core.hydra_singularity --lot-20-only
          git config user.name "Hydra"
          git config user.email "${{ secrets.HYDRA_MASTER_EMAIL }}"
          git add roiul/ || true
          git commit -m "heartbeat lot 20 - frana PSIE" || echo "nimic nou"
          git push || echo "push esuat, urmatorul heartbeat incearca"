@@ -1,0 +1,21 @@
+name: Hydra Singularity Heartbeat
+on:
+  schedule: [{cron: '0 */2 * * *'}] # la 2 ORE, nu 30 min! 30 min te baneaza GitHub
+  workflow_dispatch:
+jobs:
+  heartbeat:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5 # moare dupa 5 min, nu sta blocat
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with: {python-version: '3.11'}
+      - env:
+          HYDRA_MASTER_EMAIL: ${{ secrets.HYDRA_MASTER_EMAIL }}
+        run: |
+          python -m core.hydra_singularity --lot-20-only
+          git config user.name "Hydra"
+          git config user.email "${{ secrets.HYDRA_MASTER_EMAIL }}"
+          git add roiul/ || true
+          git commit -m "heartbeat lot 20 - frana PSIE" || echo "nimic nou"
+          git push || echo "push esuat, urmatorul heartbeat incearca"
