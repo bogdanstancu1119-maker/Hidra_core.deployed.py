@@ -127,4 +127,9 @@ class HydraEmailOrchestrator:
                 continue
         
         print(f"[HYDRA] Gata lot: {procesate_acum}/20 procesate. Urmatoarele 20 la urmatorul heartbeat.")
-        return procesate_acum
+        return procesate_acum# SCUT ANTI-CANIBALISM PSIE
+FROM_INTERZIS = ["github", "actions", "noreply", "no-reply", "workflow"]
+if any(x in mail.get("from","").lower() for x in FROM_INTERZIS):
+    continue # ignora complet emailurile de la GitHub, nu le arhiva, nu le numara
+if "psie scut" in mail.get("subject","").lower() or "workflow run" in mail.get("subject","").lower():
+    continue # ignora notificarile propriilor esecuri
