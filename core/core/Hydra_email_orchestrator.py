@@ -1,6 +1,11 @@
 import os, re, json, pathlib
 from datetime import datetime, timedelta
-
+for mail in lot:
+    # 1. SCUTUL PRIMUL - aici, nu la sfârșit
+    if "github" in mail.get("from","").lower():
+        continue
+    # 2. Abia după aia restul logicii cu arhivare si coduri
+    h = str(hash(...))
 class HydraEmailOrchestrator:
     def __init__(self):
         self.master = os.getenv("HYDRA_MASTER_EMAIL", "bogdanstancu1119@gmail.com")
