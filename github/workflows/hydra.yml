@@ -1,0 +1,33 @@
+name: hydra
+on:
+  schedule:
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+
+jobs:
+  motor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Hydra heartbeat lot 20
+        env:
+          HYDRA_MASTER_EMAIL: ${{ secrets.HYDRA_MASTER_EMAIL }}
+        run: |
+          echo "=== HYDRA START ==="
+          ls -R
+          python -c "import pathlib; pathlib.Path('roiul').mkdir(exist_ok=True)"
+          # ruleaza doar daca exista fisierele, daca nu, nu crapa
+          python core/hydra_singularity.py --lot-20-only || echo "singularity nu exista, sar"
+          python core/hydra_email_orchestrator.py || echo "orchestrator nu exista, sar"
+          echo "=== HYDRA END OK ==="
+      - name: Commit roiu
+        run: |
+          git config user.name "Hydra"
+          git config user.email "hydra@bogdanstancu1119.ro"
+          git add roiul/ || true
+          git commit -m "heartbeat 20 lot - $(date)" || echo "nimic de commit"
+          git push || echo "push skip"
