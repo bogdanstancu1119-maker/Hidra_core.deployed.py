@@ -1,0 +1,26 @@
+name: hydra-aripi
+on:
+  issues:
+    types: [opened, edited]
+  issue_comment:
+    types: [created]
+  workflow_dispatch:
+
+jobs:
+  roiu:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.11' }
+      - name: Convoaca roiu
+        run: |
+          python core/hydra_roiul_roiurilor.py || echo "prima rulare"
+          python core/hydra_email_orchestrator.py || echo "fara email azi"
+      - name: Salveaza harta
+        run: |
+          git config user.name "Hydra"
+          git config user.email "hydra@bogdanstancu1119.ro"
+          git add roiul/
+          git commit -m "aripi: harta roi suprapusa - $(date -u)" || echo "nimic nou"
+          git push || echo "push skip"
