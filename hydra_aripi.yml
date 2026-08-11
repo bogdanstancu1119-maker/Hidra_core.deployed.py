@@ -1,0 +1,23 @@
+name: hydra-aripi
+on:
+  issues: { types: [opened, edited] }
+  issue_comment: { types: [created] }
+  schedule: [{ cron: '0 */4 * * *' }]
+  workflow_dispatch: {}
+jobs:
+  roiu:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.11' }
+      - run: |
+          python core/hydra_rotatie_perpetua.py
+          python core/hydra_auto_sync.py
+          python export/hydra_seed.py || true
+      - run: |
+          git config user.name "Hydra"
+          git config user.email "hydra@psie.ro"
+          git add.
+          git commit -m "omni-sync $(date -u)" || true
+          git push || true
